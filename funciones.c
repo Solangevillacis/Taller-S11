@@ -46,8 +46,15 @@ void registrarLibro(struct Libro libros[], int *cantidad) {
     printf("Autor: ");
     leerCadena(nuevo.autor, 50);
 
+    do {
     printf("Año de publicación: ");
     nuevo.anio = leerEntero();
+
+    if (nuevo.anio <= 0) {
+        printf("Año inválido. Ingresa un año positivo.\n");
+    }
+    } while (nuevo.anio <= 0);
+
 
     strcpy(nuevo.estado, "Disponible");
 
@@ -64,16 +71,19 @@ void mostrarLibros(struct Libro libros[], int cantidad) {
         return;
     }
 
-    printf("\n%-5s %-25s %-20s %-10s %-12s\n", "ID", "Título", "Autor", "Año", "Estado");
+    printf("\n%-5s %-5s %-25s %-20s %-10s %-12s\n",
+       "N°", "ID", "Título", "Autor", "Año", "Estado");
     printf("--------------------------------------------------------------------------\n");
 
     for (int i = 0; i < cantidad; i++) {
-        printf("%-5d %-25s %-20s %-10d %-12s\n",
-               libros[i].id,
-               libros[i].titulo,
-               libros[i].autor,
-               libros[i].anio,
-               libros[i].estado);
+        printf("%-5d %-5d %-25s %-20s %-10d %-12s\n",
+       i + 1,
+       libros[i].id,
+       libros[i].titulo,
+       libros[i].autor,
+       libros[i].anio,
+       libros[i].estado);
+
     }
 }
 
